@@ -1,18 +1,18 @@
 # Prompt is All You Need: Prompting Foundation Models for Large-scale Self-supervised Semantic Segmentation
 
-Official implementation of PLUSS$_\beta$ framework with trainable semantic and box tuners for improved language-driven semantic segmentation on ImageNet-S dataset.
+Official implementation of PLUSSβ framework with trainable semantic and box tuners for improved language-driven semantic segmentation on ImageNet-S dataset.
 
 **🚀 Now with Multi-GPU Training Support!**
 
 ## Introduction
-![PLUSS$_\alpha$](assets/pluss_alpha.png)
-Schematic overview of the PLUSS$_\alpha$ pipeline. The method employs a cascade structure: image-level CLIPS identifies category concepts and generates a class prompt for region-level Grounding DINO. The resulting bounding box, enriched with category semantics, is then passed to SAM to produce the final semantic segmentation map. A noted limitation is that errors from CLIPS or Grounding DINO can propagate, leading to false or missing segmentation.
-![PLUSS$_\beta$](assets/pluss_beta.png)
-Overview of the PLUSS$_\beta$. 
-    The architecture builds upon the frozen foundation models (CLIPS, Grounding DINO, SAM) from PLUSS$_\alpha$, introducing two trainable prompt tuners: a Semantic Tuner and a Box Tuner. The model processes data through two parallel branches: a point-prompt branch (using points sampled from CLIPS attention maps) and a box-prompt branch (using boxes from Grounding DINO). The proposed tuners are trained to resolve inconsistencies between these branches. For visual clarity, positive and negative point prompts for SAM are shown in orange and blue, respectively. During inference, only the more efficient box-prompt branch is active.
+![PLUSSα](assets/pluss_alpha.png)
+Schematic overview of the PLUSSα pipeline. The method employs a cascade structure: image-level CLIPS identifies category concepts and generates a class prompt for region-level Grounding DINO. The resulting bounding box, enriched with category semantics, is then passed to SAM to produce the final semantic segmentation map. A noted limitation is that errors from CLIPS or Grounding DINO can propagate, leading to false or missing segmentation.
+![PLUSSβ](assets/pluss_beta.png)
+Overview of the PLUSSβ. 
+    The architecture builds upon the frozen foundation models (CLIPS, Grounding DINO, SAM) from PLUSSα, introducing two trainable prompt tuners: a Semantic Tuner and a Box Tuner. The model processes data through two parallel branches: a point-prompt branch (using points sampled from CLIPS attention maps) and a box-prompt branch (using boxes from Grounding DINO). The proposed tuners are trained to resolve inconsistencies between these branches. For visual clarity, positive and negative point prompts for SAM are shown in orange and blue, respectively. During inference, only the more efficient box-prompt branch is active.
 ## Overview
 
-LPUSS$_\beta$ builds upon the PLUSS$_\alpha$ pipeline by introducing two key trainable components:
+LPUSSβ builds upon the PLUSSα pipeline by introducing two key trainable components:
 
 1. **Semantic Tuner**: Visual prompt tuning module that improves semantic discrimination of CLIP features
 2. **Box Tuner**: Region-level feature fusion module that refines bounding box localization
